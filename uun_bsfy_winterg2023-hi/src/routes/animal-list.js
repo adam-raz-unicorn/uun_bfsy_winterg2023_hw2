@@ -1,11 +1,13 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent } from "uu5g05";
+import { Utils, createVisualComponent, useDataList } from "uu5g05";
 import { withRoute } from "uu_plus4u5g02-app";
 
 import Config from "./config/config.js";
 import PositionBar from "../core/position-bar.js";
 
-import MockTest from "./mock-test.js";
+import TilesExample from "./tiles-example.js";
+
+import Calls from "calls";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -17,9 +19,9 @@ import MockTest from "./mock-test.js";
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-let Home = createVisualComponent({
+let AnimalList = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Home",
+  uu5Tag: Config.TAG + "AnimalList",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -32,6 +34,7 @@ let Home = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+    const animalDataList = useDataList({ handlerMap: { load: Calls.getAnimalList } });
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -43,8 +46,7 @@ let Home = createVisualComponent({
       <div {...attrs}>
         <PositionBar />
         <div className={Config.Css.css({ padding: "16px 32px" })}>
-          {/* <ShoppingListDetail /> */}
-          <MockTest />
+          <TilesExample animalDataList={animalDataList} />
         </div>
       </div>
     );
@@ -52,9 +54,9 @@ let Home = createVisualComponent({
   },
 });
 
-Home = withRoute(Home, { authenticated: true });
+AnimalList = withRoute(AnimalList, { authenticated: true });
 
 //@@viewOn:exports
-export { Home };
-export default Home;
+export { AnimalList };
+export default AnimalList;
 //@@viewOff:exports

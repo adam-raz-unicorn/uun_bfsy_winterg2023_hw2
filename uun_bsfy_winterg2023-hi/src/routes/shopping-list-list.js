@@ -2,10 +2,11 @@
 import { Utils, createVisualComponent } from "uu5g05";
 import { withRoute } from "uu_plus4u5g02-app";
 
-import Config from "./config/config.js";
 import PositionBar from "../core/position-bar.js";
 
-import MockTest from "./mock-test.js";
+import View from "../core/shopping-list-list/view.js";
+
+import Config from "./config/config.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -17,9 +18,9 @@ import MockTest from "./mock-test.js";
 //@@viewOn:helpers
 //@@viewOff:helpers
 
-let Home = createVisualComponent({
+let ShoppingListList = createVisualComponent({
   //@@viewOn:statics
-  uu5Tag: Config.TAG + "Home",
+  uu5Tag: Config.TAG + "ShoppingListList",
   //@@viewOff:statics
 
   //@@viewOn:propTypes
@@ -32,6 +33,7 @@ let Home = createVisualComponent({
 
   render(props) {
     //@@viewOn:private
+
     //@@viewOff:private
 
     //@@viewOn:interface
@@ -43,8 +45,7 @@ let Home = createVisualComponent({
       <div {...attrs}>
         <PositionBar />
         <div className={Config.Css.css({ padding: "16px 32px" })}>
-          {/* <ShoppingListDetail /> */}
-          <MockTest />
+          <View />
         </div>
       </div>
     );
@@ -52,9 +53,9 @@ let Home = createVisualComponent({
   },
 });
 
-Home = withRoute(Home, { authenticated: true });
+ShoppingListList = withRoute(ShoppingListList, { authenticated: true });
 
 //@@viewOn:exports
-export { Home };
-export default Home;
+export { ShoppingListList };
+export default ShoppingListList;
 //@@viewOff:exports

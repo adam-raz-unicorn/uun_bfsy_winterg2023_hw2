@@ -4,10 +4,13 @@ import Uu5Elements from "uu5g05-elements";
 import Plus4U5 from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
 
+import UserProvider from "./user-list/user-provider.js";
+
 import Config from "./config/config.js";
 import Home from "../routes/home.js";
-import Hw1Design from "../routes/hw1-design.js";
-import TilesExample from "../routes/tiles-example.js";
+import ShoppingListListProvider from "./shopping-list-list/shopping-list-list-provider.js";
+import ThemeProvider from "./context-example/theme-provider.js";
+import LanguageProvider from "./context-example/language-provider.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -15,11 +18,33 @@ const About = Utils.Component.lazy(() => import("../routes/about.js"));
 const InitAppWorkspace = Utils.Component.lazy(() => import("../routes/init-app-workspace.js"));
 const ControlPanel = Utils.Component.lazy(() => import("../routes/control-panel.js"));
 
+// homework exapmle components
+const ShoppingListList = Utils.Component.lazy(() => import("../routes/shopping-list-list.js"));
+const ShoppingListListDesign = Utils.Component.lazy(() => import("../routes/shopping-list-list-design.js"));
+const ShoppingListDetail = Utils.Component.lazy(() => import("../routes/shopping-list-detail.js"));
+const ShoppingListDetailDesign = Utils.Component.lazy(() => import("../routes/shopping-list-detail-design.js"));
+
+// other examples
+const TilesExample = Utils.Component.lazy(() => import("../routes/tiles-example.js"));
+const ContextExample = Utils.Component.lazy(() => import("../routes/context-example.js"));
+const AnimalList = Utils.Component.lazy(() => import("../routes/animal-list.js"));
+
 const ROUTE_MAP = {
   "": { redirect: "home" },
   home: (props) => <Home {...props} />,
+
+  // homework examples
+  shoppingListList: (props) => <ShoppingListList {...props} />,
+  shoppingListListDesign: (props) => <ShoppingListListDesign {...props} />,
+  shoppingListDetail: (props) => <ShoppingListDetail {...props} />,
+  shoppingListDetailDesign: (props) => <ShoppingListDetailDesign {...props} />,
+
+  // other examples
+  animalList: (props) => <AnimalList {...props} />,
   tilesExample: (props) => <TilesExample {...props} />,
-  hw1design: (props) => <Hw1Design {...props} />,
+  contextExample: (props) => <ContextExample {...props} />,
+
+  //
   about: (props) => <About {...props} />,
   "sys/uuAppWorkspace/initUve": (props) => <InitAppWorkspace {...props} />,
   controlPanel: (props) => <ControlPanel {...props} />,
@@ -61,7 +86,15 @@ const Spa = createVisualComponent({
     return (
       <Plus4U5.SpaProvider initialLanguageList={["en", "cs"]}>
         <Uu5Elements.ModalBus>
-          <Plus4U5App.Spa routeMap={ROUTE_MAP} />
+          <UserProvider>
+            <ShoppingListListProvider>
+              <ThemeProvider>
+                <LanguageProvider initialLanguageList={["cs", "en"]}>
+                  <Plus4U5App.Spa routeMap={ROUTE_MAP} />
+                </LanguageProvider>
+              </ThemeProvider>
+            </ShoppingListListProvider>
+          </UserProvider>
         </Uu5Elements.ModalBus>
       </Plus4U5.SpaProvider>
     );
